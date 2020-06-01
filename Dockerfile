@@ -2,7 +2,7 @@ FROM alpine:latest
  
 MAINTAINER kiseru.io
 
-RUN apk update && apk add curl jq libc6-compat
+RUN apk update && apk add curl jq libc6-compat yq
 
 # install eksctl
 ENV DOWNLOAD_URL_EKSCTL="https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz" 
