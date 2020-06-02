@@ -47,4 +47,10 @@ RUN curl -sLO "https://github.com/kubeflow/kfctl/releases/download/v1.0.2/kfctl_
 
 RUN echo "==>" &&  kfctl version
 
-RUN GO111MODULE=on go get sigs.k8s.io/kustomize/kustomize/v3@v3.2.3
+# Add awscli
+RUN apk --no-cache update && \
+    apk --no-cache add python py-pip py-setuptools ca-certificates curl groff less && \
+    pip --no-cache-dir install awscli && \
+    rm -rf /var/cache/apk/*
+
+RUN echo "==>" && aws --version
