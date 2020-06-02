@@ -2,7 +2,7 @@ FROM alpine:latest
  
 MAINTAINER kiseru.io
 
-RUN apk update && apk add curl jq libc6-compat \
+RUN apk update && apk add curl jq libc6-compat go \
     && wget $(curl -s https://api.github.com/repos/mikefarah/yq/releases/latest | grep browser_download_url | grep linux_amd64 | cut -d '"' -f 4) -O /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
 
@@ -27,6 +27,8 @@ RUN curl -sLO "https://github.com/kubernetes-sigs/kustomize/releases/download/ku
     && chmod +x ./kustomize_kustomize.v${KUSTOMIZE_VERSION}_linux_amd64 \
     && mv ./kustomize_kustomize.v${KUSTOMIZE_VERSION}_linux_amd64 /usr/local/bin/kustomize
 
+RUN GO111MODULE=on go get sigs.k8s.io/kustomize/kustomize/v3@v3.2.3
+
 RUN echo "==>" && kustomize version
 
 # install kubectl
@@ -45,4 +47,4 @@ RUN curl -sLO "https://github.com/kubeflow/kfctl/releases/download/v1.0.2/kfctl_
 
 RUN echo "==>" &&  kfctl version
 
-
+RUN GO111MODULE=on go get sigs.k8s.io/kustomize/kustomize/v3@v3.2.3
