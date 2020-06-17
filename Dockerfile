@@ -47,10 +47,11 @@ RUN curl -sLO "https://github.com/kubeflow/kfctl/releases/download/v1.0.2/kfctl_
 
 RUN echo "==>" &&  kfctl version
 
-# Add awscli
+# Add awscli and kfp for @soulmaniqbal
 RUN apk --no-cache update && \
-    apk --no-cache add py-pip py-setuptools ca-certificates curl groff less && \
-    pip --no-cache-dir install awscli && \
+    apk --no-cache add py3-pip && \
+    pip3 --no-cache-dir install awscli kfp && \
     rm -rf /var/cache/apk/*
 
 RUN echo "==>" && aws --version
+
